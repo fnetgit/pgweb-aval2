@@ -40,7 +40,6 @@ Projeto desenvolvido como 2ª Avaliação da disciplina de Programação Web, mi
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Screenshots](#-screenshots)
 - [Funcionalidades Implementadas](#-funcionalidades-implementadas)
-- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Como Executar](#-como-executar)
 - [Estrutura de Arquivos](#-estrutura-de-arquivos)
 
@@ -114,14 +113,16 @@ A estrutura do projeto foi organizada da seguinte forma para manter a separaçã
 
 ```
 ├── 📁 public
-│   └── 📁 img
+│   ├── 📁 img
 │   └── 📁 screenshots
 ├── 📁 src
 │   ├── 📁 scripts
-│   │   └── 📄 script.js
+│   │   ├── 📄 api.js
+│   │   └── 📄 main.js
+│   │   └── 📄 ui.js
 │   ├── 📁 styles
 │   │   └── 🎨 style.css
 │   └── 🌐 index.html
-├── 📝 Readme.md
+├── 📝 README.md
 └── 📕 aval2.pdf
 ```
