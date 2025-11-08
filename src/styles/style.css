@@ -31,3 +31,11 @@ a {
   color: var(--primary-color);
   text-decoration: none;
 }
+
+.main-content, #lista-de-filmes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px
+}
