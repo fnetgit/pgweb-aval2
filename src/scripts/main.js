@@ -1,36 +1,36 @@
-import mostrarFilmes, { IMAGE_BASE_URL } from "./app.js";
+import fetchMoviesByPage, { IMAGE_BASE_URL } from "./app.js";
 
-const divFilmes = document.querySelector("#lista-de-filmes");
+const divFilmes = document.querySelector("#film-collection");
 
-function retornarImagemFilmes(filmes) {
-  const filmesLimpos = filmes.results.map((filme) => {
+function displayFilmImages(moviesList) {
+  const cleanedMovieList = moviesList.results.map((movie) => {
     return {
-      title: filme.title,
-      poster_url: `${IMAGE_BASE_URL}/w400${filme.poster_path}`,
+      title: movie.title,
+      poster_url: `${IMAGE_BASE_URL}/w400${movie.poster_path}`,
     };
   });
 
-  filmesLimpos.forEach((filme) => {
-    const novaImagem = document.createElement("img");
+  cleanedMovieList.forEach((movie) => {
+    const filmImageElement = document.createElement("img");
 
-    novaImagem.src = filme.poster_url;
+    filmImageElement.src = movie.poster_url;
 
-    divFilmes.appendChild(novaImagem);
+    divFilmes.appendChild(filmImageElement);
   });
 }
 
-let paginaAtual = 1;
+let currentPage = 1;
 
-const botao = document.querySelector("#botao-carrega-mais");
+const loadMoreButton = document.querySelector("#btn-load-more");
 
-botao.addEventListener("click", () => {
-  paginaAtual++;
+loadMoreButton.addEventListener("click", () => {
+  currentPage++;
 
-  mostrarFilmes(paginaAtual).then((filmes) => {
-    retornarImagemFilmes(filmes);
+  fetchMoviesByPage(currentPage).then((movies) => {
+    displayFilmImages(movies);
   });
 });
 
-mostrarFilmes(paginaAtual).then((filmes) => {
-  retornarImagemFilmes(filmes);
+fetchMoviesByPage(currentPage).then((movies) => {
+  displayFilmImages(movies);
 });

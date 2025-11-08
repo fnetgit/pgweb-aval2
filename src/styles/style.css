@@ -32,10 +32,23 @@ a {
   text-decoration: none;
 }
 
-.main-content, #lista-de-filmes {
+.main-content,
+#film-collection {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 20px
+  gap: 20px;
+}
+
+#btn-load-more {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--main-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
