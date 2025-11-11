@@ -1,4 +1,6 @@
-import fetchMoviesByPage, { IMAGE_BASE_URL } from "./app.js";
+import { fetchMoviesByPage } from "./app.js";
+
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
 const divFilmes = document.querySelector("#film-collection");
 
