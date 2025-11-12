@@ -1,8 +1,20 @@
 import fetchMoviesByPage, { IMAGE_BASE_URL } from "./app.js";
 
 const divFilmes = document.querySelector("#film-collection");
+const btnPrevious = document.querySelector("#btn-previous");
+const btnNext = document.querySelector("#btn-next");
+const pageInfo = document.querySelector("#page-info");
+
+let currentPage = 1;
+let totalPages = 1;
 
 function displayFilmImages(moviesList) {
+  divFilmes.innerHTML = "";
+
+  if (totalPages === 1 && moviesList.total_pages) {
+    totalPages = moviesList.total_pages;
+  }
+
   const cleanedMovieList = moviesList.results.map((movie) => {
     return {
       title: movie.title,
@@ -11,24 +23,50 @@ function displayFilmImages(moviesList) {
   });
 
   cleanedMovieList.forEach((movie) => {
+    const movieCard = document.createElement("div");
+    movieCard.className = "movie-card";
+
     const filmImageElement = document.createElement("img");
-
     filmImageElement.src = movie.poster_url;
+    filmImageElement.alt = movie.title;
 
-    divFilmes.appendChild(filmImageElement);
+    const movieTitle = document.createElement("h3");
+    movieTitle.className = "movie-title";
+    movieTitle.textContent = movie.title;
+
+    movieCard.appendChild(filmImageElement);
+    movieCard.appendChild(movieTitle);
+
+    divFilmes.appendChild(movieCard);
   });
+
+  updatePaginationControls();
 }
 
-let currentPage = 1;
+function updatePaginationControls() {
+  pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
 
-const loadMoreButton = document.querySelector("#btn-load-more");
+  btnPrevious.disabled = currentPage === 1;
 
-loadMoreButton.addEventListener("click", () => {
-  currentPage++;
+  btnNext.disabled = currentPage >= totalPages;
+}
 
-  fetchMoviesByPage(currentPage).then((movies) => {
-    displayFilmImages(movies);
-  });
+btnPrevious.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchMoviesByPage(currentPage).then((movies) => {
+      displayFilmImages(movies);
+    });
+  }
+});
+
+btnNext.addEventListener("click", () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    fetchMoviesByPage(currentPage).then((movies) => {
+      displayFilmImages(movies);
+    });
+  }
 });
 
 fetchMoviesByPage(currentPage).then((movies) => {

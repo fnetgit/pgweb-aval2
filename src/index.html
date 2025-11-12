@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalog</title>
+    <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
 
@@ -11,20 +12,17 @@
     <header>
       <h1>Catalog</h1>
 
-      <nav>
-        <ul>
-          <li><a href="#about">Sobre a Equipe</a></li>
-        </ul>
-      </nav>
+      <!-- <nav>
+        <a href="#about">Sobre a Equipe</a>
+      </nav> -->
 
       <section>
-        <h2>Pesquisar Títulos</h2>
-        <form>
+        <form class="search">
           <input
             type="text"
             id="search-input"
             name="search"
-            placeholder="Digite o nome do título..."
+            placeholder="Pesquisar títulos..."
             required
           />
           <button type="submit">Pesquisar</button>
@@ -47,7 +45,11 @@
       <section class="main-content">
         <h2>Lançamentos Recentes</h2>
         <div id="film-collection"></div>
-        <button id="btn-load-more">CARREGAR MAIS FILMES</button>
+        <div class="pagination">
+          <button id="btn-previous">← Anterior</button>
+          <span id="page-info">Página 1</span>
+          <button id="btn-next">Próximo →</button>
+        </div>
       </section>
     </main>
 
