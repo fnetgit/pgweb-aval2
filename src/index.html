@@ -4,67 +4,148 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalog</title>
-    <link rel="stylesheet" href="./styles/header.css" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
 
   <body>
-    <header>
-      <img src="/public/img/catalog_logo.png" alt="Catalog Logo">
+    <header class="site-header">
+      <div class="container header-container">
+        <img src="/public/img/catalog_logo.png" alt="Catalog Logo" />
 
-      <!-- <nav>
-        <a href="#about">Sobre a Equipe</a>
-      </nav> -->
+        <button
+          class="nav-toggle"
+          aria-label="Abrir menu"
+          aria-controls="main-nav"
+          aria-expanded="false"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
 
-      <section>
-        <form class="search">
+        <nav id="main-nav" class="main-navigation">
+          <a href="./about.html">Sobre a Equipe</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container main-container">
+      <form
+        class="filter-search-form"
+        role="search"
+        aria-label="Busca e filtros de conteúdo"
+      >
+        <fieldset class="filters">
+          <legend>Filtros</legend>
+          <div class="filter-group">
+            <div>
+              <label for="genre-filter">Gênero:</label>
+              <select
+                id="genre-filter"
+                name="genre"
+                aria-label="Selecionar gênero"
+              >
+                <option value="">Todos</option>
+                <option value="action">Ação</option>
+                <option value="comedy">Comédia</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Terror</option>
+                <option value="sci-fi">Ficção Científica</option>
+              </select>
+            </div>
+
+            <div>
+              <label id="movies-series-label">Filmes ou Séries:</label>
+              <div
+                class="radio-group"
+                role="radiogroup"
+                aria-labelledby="movies-series-label"
+              >
+                <div>
+                  <input
+                    type="radio"
+                    id="filter-all"
+                    name="type"
+                    value=""
+                    checked
+                  />
+                  <label for="filter-all">Todos</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="filter-movies"
+                    name="type"
+                    value="movie"
+                  />
+                  <label for="filter-movies">Filmes</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="filter-series"
+                    name="type"
+                    value="series"
+                  />
+                  <label for="filter-series">Séries</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="search-container">
+          <label for="search-input" class="visually-hidden"
+            >Pesquisar títulos</label
+          >
           <input
-            type="text"
+            type="search"
             id="search-input"
             name="search"
             placeholder="Pesquisar títulos..."
-            required
+            aria-label="Campo de busca"
           />
-          <button type="submit">Pesquisar</button>
-        </form>
-      </section>
-
-      <section>
-        <h2>Filtros</h2>
-        <form>
-          <label for="genre-filter">Gênero:</label>
-          <select id="genre-filter" name="genre">
-            <option value="">Todos</option>
-          </select>
-          <button type="submit">Filtrar</button>
-        </form>
-      </section>
-    </header>
-
-    <main>
-      <section class="main-content">
-        <h2>Lançamentos Recentes</h2>
-        <div id="film-collection"></div>
-        <div class="pagination">
-          <button id="btn-previous">← Anterior</button>
-          <span id="page-info">Página 1</span>
-          <button id="btn-next">Próximo →</button>
+          <button type="submit" aria-label="Realizar busca">Pesquisar</button>
         </div>
-      </section>
+      </form>
+
+      <h2 class="section-title">Lançamentos Recentes</h2>
+
+      <ol id="film-collection" class="film-list">
+        <div id="loading-spinner" class="loading-spinner">Carregando...</div>
+      </ol>
+
+      <nav class="pagination" aria-label="Paginação de resultados">
+        <button id="btn-previous">← Anterior</button>
+        <span id="page-info" aria-live="polite">Página 1</span>
+        <button id="btn-next">Próximo →</button>
+      </nav>
     </main>
 
-    <footer>
+    <footer class="site-footer">
       <p>
         &copy; 2025 Desenvolvido por:
-        <a href="https://github.com/fnetgit" target="_blank">Francisco Neto</a>,
-        <a href="https://github.com/Fabricio-Fontenele" target="_blank"
+        <a
+          href="https://github.com/fnetgit"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Francisco Neto</a
+        >,
+        <a
+          href="https://github.com/Fabricio-Fontenele"
+          target="_blank"
+          rel="noopener noreferrer"
           >Fabrício Fontenele</a
         >,
-        <a href="https://github.com/oAnjophb" target="_blank">Ruan Pedro</a>
+        <a
+          href="https://github.com/oAnjophb"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Ruan Pedro</a
+        >
       </p>
     </footer>
 
     <script src="./scripts/main.js" type="module"></script>
-    <script src="./scripts/app.js" type="module"></script>
   </body>
 </html>
