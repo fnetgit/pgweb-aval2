@@ -1,22 +1,11 @@
-import { fetchMoviesByPage } from "./app.js";
-import { fetchSeriesByPage } from "./app.js";
+import {
+  fetchMoviesByPage,
+  fetchSeriesByPage,
+  searchContent,
+  fetchGenres,
+} from "./app.js";
+import { initMobileMenu } from "./ui.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const navToggle = document.querySelector(".nav-toggle");
-  const mainNav = document.getElementById("main-nav");
-
-  if (navToggle && mainNav) {
-    navToggle.addEventListener("click", () => {
-      mainNav.classList.toggle("nav-open");
-      const isExpanded = mainNav.classList.contains("nav-open");
-      navToggle.setAttribute("aria-expanded", isExpanded);
-      navToggle.setAttribute(
-        "aria-label",
-        isExpanded ? "Fechar menu" : "Abrir menu"
-      );
-    });
-  }
-});
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 
@@ -26,42 +15,59 @@ const btnNext = document.querySelector("#btn-next");
 const pageInfo = document.querySelector("#page-info");
 const loadingSpinner = document.querySelector("#loading-spinner");
 
+const headerSearchInput = document.querySelector("#header-search");
+const headerSearchBtn = document.querySelector(".header-search-btn");
+
+const typeFilter = document.querySelector("#type-filter");
+const genreFilter = document.querySelector("#genre-filter");
+
 let currentPage = 1;
 let totalPages = 1;
+let currentType = "movie";
+let currentGenre = "all";
+let currentSearchQuery = "";
 
 function displayFilmImages(moviesList) {
   filmCollection.innerHTML = "";
   loadingSpinner.style.display = "none";
 
-  if (totalPages === 1 && moviesList.total_pages) {
-    totalPages = moviesList.total_pages;
+  if (!moviesList.results || moviesList.results.length === 0) {
+    const noResults = document.createElement("p");
+    noResults.className = "error-message";
+    noResults.textContent = "Nenhum resultado encontrado. Tente outra busca!";
+    filmCollection.appendChild(noResults);
+    totalPages = 1;
+    updatePaginationControls();
+    return;
   }
 
-  const cleanedMovieList = moviesList.results.map((movie) => {
+  totalPages = moviesList.total_pages;
+
+  const cleanedMovieList = moviesList.results.map((item) => {
     return {
-      title: movie.title,
-      poster_url: movie.poster_path
-        ? `${IMAGE_BASE_URL}/w400${movie.poster_path}`
-        : "https_placehold.co/400x600/0d1117/aaaaaa?text=Sem+Imagem",
+      title: item.title || item.name,
+      poster_url: item.poster_path
+        ? `${IMAGE_BASE_URL}/w400${item.poster_path}`
+        : "https://placehold.co/400x600/0d1117/aaaaaa?text=Sem+Imagem",
     };
   });
 
-  cleanedMovieList.forEach((movie) => {
+  cleanedMovieList.forEach((item) => {
     const movieItem = document.createElement("li");
 
     const movieCard = document.createElement("article");
     movieCard.className = "movie-card";
 
     const filmImageElement = document.createElement("img");
-    filmImageElement.src = movie.poster_url;
-    filmImageElement.alt = movie.title;
+    filmImageElement.src = item.poster_url;
+    filmImageElement.alt = item.title;
     filmImageElement.onerror = (e) => {
-      e.target.src = "https_placehold.co/400x600/0d1117/aaaaaa?text=Erro+Img";
+      e.target.src = "https://placehold.co/400x600/0d1117/aaaaaa?text=Erro+Img";
     };
 
     const movieTitle = document.createElement("h3");
     movieTitle.className = "movie-title";
-    movieTitle.textContent = movie.title;
+    movieTitle.textContent = item.title;
 
     movieCard.appendChild(filmImageElement);
     movieCard.appendChild(movieTitle);
@@ -89,32 +95,113 @@ function updatePaginationControls() {
   btnNext.disabled = currentPage >= totalPages;
 }
 
-async function loadMovies(page) {
+async function loadContent(page = 1) {
   loadingSpinner.style.display = "block";
   filmCollection.innerHTML = "";
   pageInfo.textContent = "Carregando...";
+  currentPage = page;
 
   try {
-    const movies = await fetchMoviesByPage(page);
-    displayFilmImages(movies);
+    let results;
+
+    if (currentSearchQuery.trim()) {
+      results = await searchContent(currentSearchQuery, currentType, page);
+    } else {
+      if (currentType === "series") {
+        results = await fetchSeriesByPage(page, currentGenre);
+      } else {
+        results = await fetchMoviesByPage(page, currentGenre);
+      }
+    }
+
+    displayFilmImages(results);
   } catch (error) {
-    console.error("Falha ao buscar filmes:", error);
+    console.error("Falha ao buscar conteúdo:", error);
     displayError(error.message);
   }
 }
 
+async function loadGenres(type) {
+  const genres = await fetchGenres(type);
+
+  genreFilter.innerHTML = '<option value="all">Todos os gêneros</option>';
+
+  genres.forEach((genre) => {
+    const option = document.createElement("option");
+    option.value = genre.id;
+    option.textContent = genre.name;
+    genreFilter.appendChild(option);
+  });
+
+  currentGenre = "all";
+}
+
+typeFilter.addEventListener("change", async (e) => {
+  currentType = e.target.value;
+  currentPage = 1;
+  currentSearchQuery = "";
+  headerSearchInput.value = "";
+  await loadGenres(currentType);
+  loadContent(1);
+});
+
+genreFilter.addEventListener("change", (e) => {
+  currentGenre = e.target.value;
+  currentPage = 1;
+  currentSearchQuery = "";
+  headerSearchInput.value = "";
+  loadContent(1);
+});
+
+headerSearchBtn.addEventListener("click", () => {
+  const query = headerSearchInput.value.trim();
+  if (query) {
+    currentSearchQuery = query;
+    currentPage = 1;
+    currentGenre = "all";
+    genreFilter.value = "all";
+    loadContent(1);
+  }
+});
+
+headerSearchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    const query = headerSearchInput.value.trim();
+    if (query) {
+      currentSearchQuery = query;
+      currentPage = 1;
+      currentGenre = "all";
+      genreFilter.value = "all";
+      loadContent(1);
+    }
+  }
+});
+
+headerSearchInput.addEventListener("input", (e) => {
+  if (e.target.value.trim() === "" && currentSearchQuery) {
+    currentSearchQuery = "";
+    currentPage = 1;
+    loadContent(1);
+  }
+});
+
 btnPrevious.addEventListener("click", () => {
   if (currentPage > 1) {
-    currentPage--;
-    loadMovies(currentPage);
+    loadContent(currentPage - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
 
 btnNext.addEventListener("click", () => {
   if (currentPage < totalPages) {
-    currentPage++;
-    loadMovies(currentPage);
+    loadContent(currentPage + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
 
-loadMovies(currentPage);
+(async function init() {
+  initMobileMenu();
+  await loadGenres(currentType);
+  loadContent(1);
+})();
