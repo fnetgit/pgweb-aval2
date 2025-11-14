@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catalog - Seu catálogo online</title>
-    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="/src/styles/style.css" />
     <link
       rel="shortcut icon"
       href="/public/img/favicon.ico"
@@ -15,22 +15,32 @@
   <body>
     <header>
       <div class="container-header">
-        <img src="/public/img/catalog_logo.png" alt="Catalog Logo" />
+        <a href="/">
+          <img src="/public/img/catalog_logo.png" alt="Catalog Logo" />
+        </a>
 
         <div class="header-search-container">
-          <input 
-            type="search" 
-            id="header-search" 
+          <input
+            type="search"
+            id="header-search"
             class="header-search-input"
             placeholder="Buscar filmes e séries..."
             aria-label="Buscar conteúdo"
           />
-          <button 
-            type="button" 
+          <button
+            type="button"
             class="header-search-btn"
             aria-label="Realizar busca"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.35-4.35"></path>
             </svg>
@@ -60,7 +70,11 @@
           <div class="filter-controls">
             <div class="filter-item">
               <label for="type-filter">Tipo de Conteúdo</label>
-              <select name="type" id="type-filter" aria-label="Filtrar por tipo">
+              <select
+                name="type"
+                id="type-filter"
+                aria-label="Filtrar por tipo"
+              >
                 <option value="movie">Filmes</option>
                 <option value="series">Séries</option>
               </select>
@@ -68,7 +82,11 @@
 
             <div class="filter-item">
               <label for="genre-filter">Gênero</label>
-              <select name="genre" id="genre-filter" aria-label="Filtrar por gênero">
+              <select
+                name="genre"
+                id="genre-filter"
+                aria-label="Filtrar por gênero"
+              >
                 <option value="all">Todos os gêneros</option>
               </select>
             </div>
@@ -114,6 +132,6 @@
       </p>
     </footer>
 
-    <script src="./scripts/main.js" type="module"></script>
+    <script src="/src/scripts/main.js" type="module"></script>
   </body>
 </html>
