@@ -33,19 +33,19 @@ fieldset {
   border-style: none;
 }
 
-.container {
-  width: 100%;
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: 0 15px;
-}
-
 .container-header {
   display: flex;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 0.5px solid var(--border-color);
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  top: 0;
+  z-index: 1000;
+  width: 100vw;
+  box-sizing: border-box;
   flex-wrap: wrap;
   gap: 0.75rem;
 }
@@ -55,7 +55,6 @@ fieldset {
   width: auto;
 }
 
-/* Header Search - Mobile First */
 .header-search-container {
   display: flex;
   align-items: center;
@@ -76,7 +75,6 @@ fieldset {
 .header-search-input {
   flex: 1;
   background: transparent;
-  border: none;
   padding: 0.7rem 1rem;
   font-size: 0.9rem;
   color: var(--main-text-color);
@@ -90,7 +88,7 @@ fieldset {
 .header-search-btn {
   background-color: var(--primary-color);
   border: none;
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 1.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -125,6 +123,7 @@ fieldset {
   height: 30px;
   cursor: pointer;
   margin-top: -12px;
+  margin-right: 20px;
   background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round"%3e%3cline x1="3" y1="12" x2="21" y2="12"%3e%3c/line%3e%3cline x1="3" y1="6" x2="21" y2="6"%3e%3c/line%3e%3cline x1="3" y1="18" x2="21" y2="18"%3e%3c/line%3e%3c/svg%3e');
   background-size: contain;
 }
@@ -147,8 +146,9 @@ fieldset {
   text-align: center;
 }
 
-/* ===== FILTER SECTION ===== */
+
 .filter-section {
+  margin-top: 8.4rem;
   background: linear-gradient(135deg, var(--primary-surface-color) 0%, rgba(26, 32, 44, 0.8) 100%);
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -388,10 +388,10 @@ input[type="search"] {
     font-weight: 500;
   }
 
-  /* Header Search - Responsive */
   .header-search-container {
     width: auto;
     flex: 1;
+    margin-right: 20px;
     max-width: 400px;
     order: 0;
   }
