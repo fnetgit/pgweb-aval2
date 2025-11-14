@@ -17,6 +17,26 @@
       <div class="container-header">
         <img src="/public/img/catalog_logo.png" alt="Catalog Logo" />
 
+        <div class="header-search-container">
+          <input 
+            type="search" 
+            id="header-search" 
+            class="header-search-input"
+            placeholder="Buscar filmes e séries..."
+            aria-label="Buscar conteúdo"
+          />
+          <button 
+            type="button" 
+            class="header-search-btn"
+            aria-label="Realizar busca"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+        </div>
+
         <button
           class="nav-toggle"
           aria-label="Abrir menu"
@@ -30,26 +50,31 @@
         </nav>
       </div>
 
-      <form
-        class="filter-search-form"
-        aria-label="Busca e filtros de conteúdo"
-      >
+      <section class="filter-section" aria-label="Filtros de conteúdo">
         <div class="filter-container">
-          <h1>Lançamentos de 2025</h1>
-          <p>Descubra os filmes e séries mais recentes</p
+          <div class="filter-header">
+            <h1>Lançamentos de 2025</h1>
+            <p>Descubra os filmes e séries mais recentes</p>
+          </div>
 
-          <div class="select-group">
-            <select name="type" id="type-filter" aria-label="Filtrar por tipo">
-              <option value="movie">Filmes</option>
-              <option value="series">Séries</option>
-            </select>
+          <div class="filter-controls">
+            <div class="filter-item">
+              <label for="type-filter">Tipo de Conteúdo</label>
+              <select name="type" id="type-filter" aria-label="Filtrar por tipo">
+                <option value="movie">Filmes</option>
+                <option value="series">Séries</option>
+              </select>
+            </div>
 
-            <select name="genre" id="genre-filter" aria-label="Filtrar por gênero">
-              <option value="all">Todos os gêneros</option>
-            </select>
+            <div class="filter-item">
+              <label for="genre-filter">Gênero</label>
+              <select name="genre" id="genre-filter" aria-label="Filtrar por gênero">
+                <option value="all">Todos os gêneros</option>
+              </select>
+            </div>
           </div>
         </div>
-      </form>
+      </section>
     </header>
     <main class="container main-container">
       <h2 class="section-title">Lançamentos Recentes</h2>
