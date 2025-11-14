@@ -41,7 +41,7 @@ fieldset {
   padding: 1rem;
   border-bottom: 0.5px solid var(--border-color);
   background-color: transparent;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
   top: 0;
   z-index: 1000;
   width: 100vw;
@@ -149,8 +149,7 @@ fieldset {
 
 .filter-section {
   margin-top: 8.4rem;
-  background: linear-gradient(135deg, var(--primary-surface-color) 0%, rgba(26, 32, 44, 0.8) 100%);
-  border-bottom: 2px solid var(--border-color);
+  background: linear-gradient(120deg, rgba(17, 17, 19, 0.8) 0%, rgba(10, 14, 22, 0.8) 100%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -229,6 +228,12 @@ select:focus {
 .main-container {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+main {
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 select,

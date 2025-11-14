@@ -117,12 +117,12 @@ A estrutura do projeto foi organizada da seguinte forma para manter a separaçã
 │   └── 📁 screenshots
 ├── 📁 src
 │   ├── 📁 scripts
-│   │   ├── 📄 api.js
-│   │   └── 📄 main.js
+│   │   ├── 📄 app.js
+│   │   ├── 📄 main.js
 │   │   └── 📄 ui.js
-│   ├── 📁 styles
-│   │   └── 🎨 style.css
-│   └── 🌐 index.html
+│   └── 📁 styles
+│       └── 🎨 style.css
 ├── 📝 README.md
-└── 📕 aval2.pdf
+├── 📕 aval2.pdf
+└── 🌐 index.html
 ```
