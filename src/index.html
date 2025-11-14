@@ -25,91 +25,33 @@
         ></button>
 
         <nav id="main-nav" class="main-navigation">
+          <a href="./index.html">Início</a>
           <a href="./about.html">Sobre a Equipe</a>
         </nav>
       </div>
-    </header>
 
-    <main class="container main-container">
       <form
         class="filter-search-form"
-        role="search"
         aria-label="Busca e filtros de conteúdo"
       >
-        <fieldset class="filters">
-          <legend>Filtros</legend>
-          <div class="filter-group">
-            <div>
-              <label for="genre-filter">Gênero:</label>
-              <select
-                id="genre-filter"
-                name="genre"
-                aria-label="Selecionar gênero"
-              >
-                <option value="">Todos</option>
-                <option value="action">Ação</option>
-                <option value="comedy">Comédia</option>
-                <option value="drama">Drama</option>
-                <option value="horror">Terror</option>
-                <option value="sci-fi">Ficção Científica</option>
-              </select>
-            </div>
+        <div class="filter-container">
+          <h1>Lançamentos de 2025</h1>
+          <p>Descubra os filmes e séries mais recentes</p
 
-            <div>
-              <label id="movies-series-label">Filmes ou Séries:</label>
-              <div
-                class="radio-group"
-                role="radiogroup"
-                aria-labelledby="movies-series-label"
-              >
-                <div>
-                  <input
-                    type="radio"
-                    id="filter-all"
-                    name="type"
-                    value=""
-                    checked
-                  />
-                  <label for="filter-all">Todos</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="filter-movies"
-                    name="type"
-                    value="movie"
-                  />
-                  <label for="filter-movies">Filmes</label>
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    id="filter-series"
-                    name="type"
-                    value="series"
-                  />
-                  <label for="filter-series">Séries</label>
-                </div>
-              </div>
-            </div>
+          <div class="select-group">
+            <select name="type" id="type-filter" aria-label="Filtrar por tipo">
+              <option value="movie">Filmes</option>
+              <option value="series">Séries</option>
+            </select>
+
+            <select name="genre" id="genre-filter" aria-label="Filtrar por gênero">
+              <option value="all">Todos os gêneros</option>
+            </select>
           </div>
-        </fieldset>
-
-        <div class="search-container">
-          <label for="search-input" class="visually-hidden"
-            >Pesquisar títulos</label
-          >
-          <input
-            type="search"
-            id="search-input"
-            name="search"
-            placeholder="Pesquisar títulos..."
-            aria-label="Campo de busca"
-          />
-          <button type="submit" aria-label="Realizar busca">Pesquisar</button>
         </div>
       </form>
-
+    </header>
+    <main class="container main-container">
       <h2 class="section-title">Lançamentos Recentes</h2>
 
       <ol id="film-collection" class="film-list">
