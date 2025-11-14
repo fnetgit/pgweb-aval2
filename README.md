@@ -57,7 +57,7 @@ Este projeto cumpre os requisitos da 2ª Avaliação da disciplina, focando no u
 
 ### Página Inicial (Desktop)
 
-![Print da Página Inicial]()
+![Print da Página Inicial](/public/screenshots/desktop_initial_page.png)
 
 ### Página de Detalhes (Filme/Série)
 
@@ -65,7 +65,7 @@ Este projeto cumpre os requisitos da 2ª Avaliação da disciplina, focando no u
 
 ### Responsividade (Mobile)
 
-![Print da Versão Mobile]()
+![Print da Versão Mobile](/public/screenshots/mobile_initial_page.png)
 
 ---
 
