@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhes - Catalog</title>
+    <link rel="stylesheet" href="../src/styles/style.css" />
+    <link rel="stylesheet" href="../src/styles/details.css" />
+    <link
+      rel="shortcut icon"
+      href="../public/img/favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+
+  <body>
+    <header>
+      <div class="container-header">
+        <a href="../index.html">
+          <img src="../public/img/catalog_logo.png" alt="Catalog Logo" />
+        </a>
+
+        <button
+          class="nav-toggle"
+          aria-label="Abrir menu"
+          aria-controls="main-nav"
+          aria-expanded="false"
+        ></button>
+
+        <nav id="main-nav" class="main-navigation">
+          <a href="../index.html">Início</a>
+          <a href="../about.html">Sobre a Equipe</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div id="loading-spinner" class="loading-spinner">Carregando...</div>
+
+      <div id="details-content" class="details-content" style="display: none">
+        <!-- Hero section com backdrop -->
+        <div class="details-hero">
+          <div class="backdrop-container">
+            <img id="backdrop-img" src="" alt="" class="backdrop-img" />
+            <div class="backdrop-overlay"></div>
+          </div>
+
+          <!-- Container principal com poster e info -->
+          <div class="details-main-container">
+            <div class="poster-wrapper">
+              <img id="poster-img" src="" alt="" class="poster-img" />
+            </div>
+
+            <div class="details-info">
+              <h1 id="title" class="details-title"></h1>
+
+              <div class="details-meta">
+                <span id="release-date" class="meta-item"></span>
+                <span class="meta-separator">•</span>
+                <span id="runtime" class="meta-item"></span>
+              </div>
+
+              <div class="rating-container">
+                <div class="rating-circle">
+                  <svg class="rating-svg" viewBox="0 0 36 36">
+                    <path
+                      id="rating-bg"
+                      class="rating-bg"
+                      d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path
+                      id="rating-path"
+                      class="rating-path"
+                      stroke-dasharray="0, 100"
+                      d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <text
+                      id="rating-text"
+                      x="18"
+                      y="20.35"
+                      class="rating-text"
+                    ></text>
+                  </svg>
+                </div>
+                <span class="rating-label">Avaliação dos usuários</span>
+              </div>
+
+              <div id="genres" class="genres-list"></div>
+
+              <div class="overview-section">
+                <h2 class="section-subtitle">Sinopse</h2>
+                <p id="overview" class="overview-text"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="error-message" class="error-message" style="display: none">
+        Erro ao carregar os detalhes. Por favor, tente novamente.
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2025 Desenvolvido por:
+        <a
+          href="https://github.com/fnetgit"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Francisco Neto</a
+        >,
+        <a
+          href="https://github.com/Fabricio-Fontenele"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Fabrício Fontenele</a
+        >,
+        <a
+          href="https://github.com/oAnjophb"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Ruan Pedro</a
+        >
+      </p>
+    </footer>
+
+    <script type="module" src="../src/scripts/details.js"></script>
+    <script type="module" src="../src/scripts/ui.js"></script>
+    <script type="module">
+      import { initMobileMenu } from "../src/scripts/ui.js";
+      initMobileMenu();
+    </script>
+  </body>
+</html>

@@ -52,7 +52,9 @@ export async function fetchSeriesByPage(currentPage, genre = "") {
 export async function searchContent(query, type = "movie", page = 1) {
   console.log(`Buscando "${query}" em ${type}...`);
   const endpoint = type === "series" ? "/search/tv" : "/search/movie";
-  const searchRequestUrl = `${BASE_URL}${endpoint}?api_key=${API_KEY}&query=${encodeURIComponent(query)}&page=${page}&language=pt-BR`;
+  const searchRequestUrl = `${BASE_URL}${endpoint}?api_key=${API_KEY}&query=${encodeURIComponent(
+    query
+  )}&page=${page}&language=pt-BR`;
 
   try {
     const response = await fetch(searchRequestUrl);
@@ -91,5 +93,28 @@ export async function fetchGenres(type = "movie") {
   } catch (error) {
     console.error("Falha ao buscar gêneros:", error);
     return [];
+  }
+}
+
+export async function fetchContentDetails(id, type = "movie") {
+  console.log(`Buscando detalhes de ${type} com ID ${id}...`);
+  const endpoint = type === "series" ? `tv/${id}` : `movie/${id}`;
+  const url = `${BASE_URL}/${endpoint}?api_key=${API_KEY}&language=pt-BR`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(
+        `Erro da API: ${response.statusText} (Status: ${response.status})`
+      );
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Falha ao buscar detalhes:", error);
+    throw new Error(error.message || "Não foi possível carregar os detalhes.");
   }
 }
