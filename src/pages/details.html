@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detalhes - Catalog</title>
-    <link rel="stylesheet" href="../src/styles/style.css" />
-    <link rel="stylesheet" href="../src/styles/details.css" />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link rel="stylesheet" href="/src/styles/details.css" />
     <link
       rel="shortcut icon"
-      href="../public/img/favicon.ico"
+      href="/public/img/favicon.ico"
       type="image/x-icon"
     />
   </head>
@@ -16,8 +16,8 @@
   <body>
     <header>
       <div class="container-header">
-        <a href="../index.html">
-          <img src="../public/img/catalog_logo.png" alt="Catalog Logo" />
+        <a href="/">
+          <img src="/public/img/catalog_logo.png" alt="Catalog Logo" />
         </a>
 
         <button
@@ -28,8 +28,8 @@
         ></button>
 
         <nav id="main-nav" class="main-navigation">
-          <a href="../index.html">Início</a>
-          <a href="../about.html">Sobre a Equipe</a>
+          <a href="/index.html">Início</a>
+          <a href="/src/pages/about.html">Sobre a Equipe</a>
         </nav>
       </div>
     </header>
@@ -38,14 +38,12 @@
       <div id="loading-spinner" class="loading-spinner">Carregando...</div>
 
       <div id="details-content" class="details-content" style="display: none">
-        <!-- Hero section com backdrop -->
         <div class="details-hero">
           <div class="backdrop-container">
             <img id="backdrop-img" src="" alt="" class="backdrop-img" />
             <div class="backdrop-overlay"></div>
           </div>
 
-          <!-- Container principal com poster e info -->
           <div class="details-main-container">
             <div class="poster-wrapper">
               <img id="poster-img" src="" alt="" class="poster-img" />
@@ -129,11 +127,8 @@
       </p>
     </footer>
 
-    <script type="module" src="../src/scripts/details.js"></script>
-    <script type="module" src="../src/scripts/ui.js"></script>
-    <script type="module">
-      import { initMobileMenu } from "../src/scripts/ui.js";
-      initMobileMenu();
+    <script type="module" src="/src/scripts/details.js"></script>
+    <script type="module" src="/src/scripts/ui.js"></script>
     </script>
   </body>
 </html>
