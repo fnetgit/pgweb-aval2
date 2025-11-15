@@ -1,6 +1,7 @@
 import {
   fetchMoviesByPage,
   fetchSeriesByPage,
+  fetchMixedContent,
   searchContent,
   fetchGenres,
 } from "./app.js";
@@ -23,7 +24,7 @@ const elements = {
 
 let currentPage = 1;
 let totalPages = 1;
-let currentType = "movie";
+let currentType = "mixed";
 let currentGenre = "all";
 let searchQuery = "";
 
@@ -46,12 +47,14 @@ function displayContent(data) {
 
   totalPages = data.total_pages;
   elements.collection.innerHTML = data.results
-    .map(
-      (item) => `
+    .map((item) => {
+      const type = item.media_type || currentType;
+      const typeLabel = type === "series" ? "Série" : "Filme";
+      return `
     <li>
-      <article class="movie-card" onclick="location.href='/src/pages/details.html?id=${
+      <article class="movie-card" onclick="location.href='./src/pages/details.html?id=${
         item.id
-      }&type=${currentType}'">
+      }&type=${type}'">
         <img src="${
           item.poster_path
             ? `${IMG_URL}/w400${item.poster_path}`
@@ -60,6 +63,7 @@ function displayContent(data) {
              alt="${item.title || item.name}"
              onerror="this.src='https://placehold.co/400x600/0d1117/aaaaaa?text=Erro+Img'">
         <div class="movie-overlay">
+          <span class="overlay-type">${typeLabel}</span>
           <h3 class="overlay-title">${item.title || item.name}</h3>
           <p class="overlay-year">${
             (item.release_date || item.first_air_date)?.slice(0, 4) || "N/A"
@@ -73,8 +77,8 @@ function displayContent(data) {
         </div>
       </article>
     </li>
-  `
-    )
+  `;
+    })
     .join("");
   updatePagination();
 }
@@ -91,12 +95,16 @@ async function loadContent(page = 1) {
   currentPage = page;
 
   try {
-    const data = searchQuery.trim()
-      ? await searchContent(searchQuery, currentType, page)
-      : currentType === "series"
-      ? await fetchSeriesByPage(page, currentGenre)
-      : await fetchMoviesByPage(page, currentGenre);
-
+    let data;
+    if (searchQuery.trim()) {
+      data = await searchContent(searchQuery, currentType, page);
+    } else if (currentType === "mixed") {
+      data = await fetchMixedContent(page, currentGenre);
+    } else if (currentType === "series") {
+      data = await fetchSeriesByPage(page, currentGenre);
+    } else {
+      data = await fetchMoviesByPage(page, currentGenre);
+    }
     displayContent(data);
   } catch (error) {
     showError(error.message);

@@ -1,120 +1,115 @@
 const API_KEY = "061ef10fb0dbfe0515d15b2e76255380";
 const BASE_URL = "https://api.themoviedb.org/3";
-const movieSearchQuery = "/discover/movie?primary_release_year=2025&";
-const seriesSearchQuery = "/discover/tv?first_air_date_year=2025&";
 
-export async function fetchMoviesByPage(currentPage, genre = "") {
-  console.log(`Buscando filmes na pagina ${currentPage}...`);
-  const genreParam = genre && genre !== "all" ? `&with_genres=${genre}` : "";
-  const searchRequestUrl = `${BASE_URL}${movieSearchQuery}api_key=${API_KEY}&page=${currentPage}&language=pt-BR${genreParam}`;
-
+async function fetchFromAPI(endpoint) {
   try {
-    const response = await fetch(searchRequestUrl);
-
+    const response = await fetch(`${BASE_URL}${endpoint}`);
     if (!response.ok) {
       throw new Error(
         `Erro da API: ${response.statusText} (Status: ${response.status})`
       );
     }
-
-    const moviesJson = await response.json();
-    console.log(moviesJson);
-    return moviesJson;
+    return await response.json();
   } catch (error) {
     console.error("Falha no fetch:", error);
     throw new Error(error.message || "Não foi possível conectar à API.");
   }
+}
+
+export async function fetchMoviesByPage(currentPage, genre = "") {
+  const genreParam = genre && genre !== "all" ? `&with_genres=${genre}` : "";
+  const endpoint = `/discover/movie?primary_release_year=2025&api_key=${API_KEY}&page=${currentPage}&language=pt-BR${genreParam}`;
+  return fetchFromAPI(endpoint);
 }
 
 export async function fetchSeriesByPage(currentPage, genre = "") {
-  console.log(`Buscando séries na pagina ${currentPage}...`);
   const genreParam = genre && genre !== "all" ? `&with_genres=${genre}` : "";
-  const searchRequestUrl = `${BASE_URL}${seriesSearchQuery}api_key=${API_KEY}&page=${currentPage}&language=pt-BR${genreParam}`;
+  const endpoint = `/discover/tv?first_air_date_year=2025&api_key=${API_KEY}&page=${currentPage}&language=pt-BR${genreParam}`;
+  return fetchFromAPI(endpoint);
+}
 
-  try {
-    const response = await fetch(searchRequestUrl);
+export async function fetchMixedContent(currentPage, genre = "") {
+  const [movies, series] = await Promise.all([
+    fetchMoviesByPage(currentPage, genre),
+    fetchSeriesByPage(currentPage, genre),
+  ]);
 
-    if (!response.ok) {
-      throw new Error(
-        `Erro da API: ${response.statusText} (Status: ${response.status})`
-      );
-    }
+  const moviesLimited = movies.results
+    .slice(0, 10)
+    .map((item) => ({ ...item, media_type: "movie" }));
+  const seriesLimited = series.results
+    .slice(0, 10)
+    .map((item) => ({ ...item, media_type: "series" }));
 
-    const seriesJson = await response.json();
-    console.log(seriesJson);
-    return seriesJson;
-  } catch (error) {
-    console.error("Falha no fetch:", error);
-    throw new Error(error.message || "Não foi possível conectar à API.");
-  }
+  const combined = [...moviesLimited, ...seriesLimited].sort(
+    () => Math.random() - 0.5
+  );
+
+  return {
+    results: combined,
+    page: currentPage,
+    total_pages: Math.max(movies.total_pages, series.total_pages),
+  };
 }
 
 export async function searchContent(query, type = "movie", page = 1) {
-  console.log(`Buscando "${query}" em ${type}...`);
-  const endpoint = type === "series" ? "/search/tv" : "/search/movie";
-  const searchRequestUrl = `${BASE_URL}${endpoint}?api_key=${API_KEY}&query=${encodeURIComponent(
-    query
-  )}&page=${page}&language=pt-BR`;
+  if (type === "mixed") {
+    const [movies, series] = await Promise.all([
+      fetchFromAPI(
+        `/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+          query
+        )}&page=${page}&language=pt-BR`
+      ),
+      fetchFromAPI(
+        `/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(
+          query
+        )}&page=${page}&language=pt-BR`
+      ),
+    ]);
 
-  try {
-    const response = await fetch(searchRequestUrl);
+    const combined = [
+      ...movies.results.map((item) => ({ ...item, media_type: "movie" })),
+      ...series.results.map((item) => ({ ...item, media_type: "series" })),
+    ].sort(() => Math.random() - 0.5);
 
-    if (!response.ok) {
-      throw new Error(
-        `Erro da API: ${response.statusText} (Status: ${response.status})`
-      );
-    }
-
-    const results = await response.json();
-    console.log(results);
-    return results;
-  } catch (error) {
-    console.error("Falha na busca:", error);
-    throw new Error(error.message || "Não foi possível realizar a busca.");
+    return {
+      results: combined,
+      page: page,
+      total_pages: Math.max(movies.total_pages, series.total_pages),
+    };
   }
+
+  const endpoint = type === "series" ? "/search/tv" : "/search/movie";
+  return fetchFromAPI(
+    `${endpoint}?api_key=${API_KEY}&query=${encodeURIComponent(
+      query
+    )}&page=${page}&language=pt-BR`
+  );
 }
 
 export async function fetchGenres(type = "movie") {
-  console.log(`Buscando gêneros de ${type}...`);
-  const endpoint = type === "series" ? "/genre/tv/list" : "/genre/movie/list";
-  const url = `${BASE_URL}${endpoint}?api_key=${API_KEY}&language=pt-BR`;
+  if (type === "mixed") {
+    const [movieGenres, seriesGenres] = await Promise.all([
+      fetchFromAPI(`/genre/movie/list?api_key=${API_KEY}&language=pt-BR`),
+      fetchFromAPI(`/genre/tv/list?api_key=${API_KEY}&language=pt-BR`),
+    ]);
 
-  try {
-    const response = await fetch(url);
+    const movieGenreIds = new Set(movieGenres.genres.map((g) => g.id));
+    const commonGenres = seriesGenres.genres.filter((g) =>
+      movieGenreIds.has(g.id)
+    );
 
-    if (!response.ok) {
-      throw new Error(
-        `Erro da API: ${response.statusText} (Status: ${response.status})`
-      );
-    }
-
-    const data = await response.json();
-    return data.genres;
-  } catch (error) {
-    console.error("Falha ao buscar gêneros:", error);
-    return [];
+    return commonGenres;
   }
+
+  const endpoint = type === "series" ? "/genre/tv/list" : "/genre/movie/list";
+  const data = await fetchFromAPI(
+    `${endpoint}?api_key=${API_KEY}&language=pt-BR`
+  );
+  return data.genres || [];
 }
 
 export async function fetchContentDetails(id, type = "movie") {
-  console.log(`Buscando detalhes de ${type} com ID ${id}...`);
   const endpoint = type === "series" ? `tv/${id}` : `movie/${id}`;
-  const url = `${BASE_URL}/${endpoint}?api_key=${API_KEY}&language=pt-BR`;
-
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(
-        `Erro da API: ${response.statusText} (Status: ${response.status})`
-      );
-    }
-
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error("Falha ao buscar detalhes:", error);
-    throw new Error(error.message || "Não foi possível carregar os detalhes.");
-  }
+  return fetchFromAPI(`/${endpoint}?api_key=${API_KEY}&language=pt-BR`);
 }

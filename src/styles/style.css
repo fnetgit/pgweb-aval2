@@ -327,6 +327,16 @@ input[type="search"] {
   color: #fff;
 }
 
+.overlay-type {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #00d9ff;
+  margin-bottom: 8px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
 .overlay-title {
   font-size: 16px;
   font-weight: 700;
@@ -497,6 +507,11 @@ input[type="search"] {
     opacity: 1;
   }
 
+  .overlay-type {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
   .overlay-title {
     font-size: 14px;
   }
@@ -517,25 +532,16 @@ input[type="search"] {
 }
 
 @media (max-width: 1500px) {
-    .movie-overlay {
+  .movie-overlay {
     opacity: 1;
+  }
+
+  .overlay-type {
+    font-size: 10px;
+    margin-bottom: 6px;
   }
 
   .overlay-title {
     font-size: 14px;
-  }
-
-  .overlay-year {
-    font-size: 12px;
-    margin-bottom: 8px;
-  }
-
-  .overlay-rating {
-    font-size: 16px;
-  }
-
-  .star-icon {
-    width: 18px;
-    height: 18px;
   }
 }
