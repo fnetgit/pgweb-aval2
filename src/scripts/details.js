@@ -75,7 +75,7 @@ const displayDetails = (data) => {
   setImage(elements.poster, data.poster_path, name, "w500");
   
   elements.title.textContent = name;
-  document.title = `${name} - Catalog`;
+  document.title = `${name}`;
   elements.date.textContent = formatDate(data.release_date || data.first_air_date);
 
   if (contentType === "movie") {

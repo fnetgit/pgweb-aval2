@@ -515,3 +515,27 @@ input[type="search"] {
     height: 18px;
   }
 }
+
+@media (max-width: 1500px) {
+    .movie-overlay {
+    opacity: 1;
+  }
+
+  .overlay-title {
+    font-size: 14px;
+  }
+
+  .overlay-year {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .overlay-rating {
+    font-size: 16px;
+  }
+
+  .star-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
