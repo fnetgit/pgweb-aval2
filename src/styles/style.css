@@ -146,10 +146,13 @@ fieldset {
   text-align: center;
 }
 
-
 .filter-section {
   margin-top: 8.4rem;
-  background: linear-gradient(120deg, rgba(17, 17, 19, 0.8) 0%, rgba(10, 14, 22, 0.8) 100%);
+  background: linear-gradient(
+    120deg,
+    rgba(17, 17, 19, 0.8) 0%,
+    rgba(10, 14, 22, 0.8) 100%
+  );
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -201,7 +204,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 100%;
-  background-color: var(--bg-color); 
+  background-color: var(--bg-color);
   color: var(--main-text-color);
   padding: 0.85rem 1rem;
   border: 1px solid var(--border-color);
@@ -283,11 +286,16 @@ input[type="search"] {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .movie-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 16px var(--hover-color);
+}
+
+.movie-card:hover .movie-overlay {
+  opacity: 1;
 }
 
 .movie-card img {
@@ -298,17 +306,61 @@ input[type="search"] {
   background-color: var(--bg-color);
 }
 
-.movie-title {
-  padding: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  min-height: 65px;
-  flex-grow: 1;
+.movie-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #fff;
+}
+
+.overlay-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.overlay-year {
+  font-size: 14px;
+  color: #ddd;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.overlay-rating {
   display: flex;
   align-items: center;
-  justify-content: center;
-  line-height: 1.3;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffd700;
+}
+
+.star-icon {
+  width: 20px;
+  height: 20px;
+  fill: #ffd700;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.overlay-rating span {
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .pagination {
@@ -401,7 +453,6 @@ input[type="search"] {
     order: 0;
   }
 
-  /* Filter Section - Responsive */
   .filter-container {
     padding: 2rem 1.5rem;
   }
@@ -438,5 +489,29 @@ input[type="search"] {
 @media (min-width: 1024px) {
   .film-list {
     grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .movie-overlay {
+    opacity: 1;
+  }
+
+  .overlay-title {
+    font-size: 14px;
+  }
+
+  .overlay-year {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .overlay-rating {
+    font-size: 16px;
+  }
+
+  .star-icon {
+    width: 18px;
+    height: 18px;
   }
 }

@@ -1,0 +1,274 @@
+.details-content {
+  margin-top: 90px;
+  min-height: calc(100vh - 150px);
+}
+
+.details-hero {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+}
+
+.backdrop-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.backdrop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.backdrop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 17, 23, 0.3) 0%,
+    rgba(13, 17, 23, 0.8) 50%,
+    rgba(13, 17, 23, 0.95) 80%,
+    var(--bg-color) 100%
+  );
+}
+
+.details-main-container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-height: 70vh;
+  align-items: center;
+}
+
+.poster-wrapper {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.poster-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.poster-img:hover {
+  transform: scale(1.02);
+}
+
+.details-info {
+  flex: 1;
+  color: var(--main-text-color);
+}
+
+.details-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.details-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  color: var(--secondary-text-color);
+}
+
+.meta-item {
+  font-weight: 500;
+}
+
+.meta-separator {
+  color: var(--border-color);
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.rating-circle {
+  width: 70px;
+  height: 70px;
+}
+
+.rating-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.rating-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3;
+}
+
+.rating-path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease;
+}
+
+.rating-text {
+  font-size: 10px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+.rating-label {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+  max-width: 120px;
+  line-height: 1.3;
+}
+
+.genres-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.genre-tag {
+  background-color: rgba(193, 85, 35, 0.2);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.genre-tag:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.overview-section {
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+}
+
+.overview-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--main-text-color);
+  text-align: justify;
+}
+
+.loading-spinner {
+  margin-top: 150px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-text-color);
+  padding: 40px;
+}
+
+.error-message {
+  margin-top: 150px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--hover-color);
+  padding: 40px;
+}
+
+@media (min-width: 768px) {
+  .details-main-container {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 60px 40px;
+  }
+
+  .poster-wrapper {
+    width: 350px;
+    margin: 0;
+  }
+
+  .details-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .poster-wrapper {
+    width: 400px;
+  }
+
+  .details-title {
+    font-size: 3.2rem;
+  }
+
+  .overview-text {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .details-hero {
+    min-height: auto;
+  }
+
+  .backdrop-container {
+    position: relative;
+    height: 300px;
+  }
+
+  .details-main-container {
+    padding: 30px 20px;
+    min-height: auto;
+  }
+
+  .details-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .details-meta {
+    justify-content: center;
+  }
+
+  .rating-container {
+    justify-content: center;
+  }
+
+  .overview-text {
+    text-align: left;
+  }
+}
