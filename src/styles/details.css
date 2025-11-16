@@ -10,12 +10,16 @@
 }
 
 .backdrop-container {
-  margin-top: -7px;
+  margin-top: -10.9px;
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 97vw;
+  height: 60vh;
+  max-height: 600px;
+  overflow: hidden;
+  z-index: 0;
 }
 
 .backdrop-img {
@@ -38,16 +42,23 @@
 }
 
 .details-main-container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  min-height: 70vh;
   align-items: center;
 }
 
 .poster-wrapper {
+  flex-shrink: 0;
+  width: 100%;
   max-width: 300px;
-  margin-top: -5rem;
-  z-index: 1;
+  margin: 0 auto;
 }
 
 .poster-img {
