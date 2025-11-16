@@ -1,4 +1,5 @@
 @import url("details.css");
+@import url("about.css");
 
 :root {
   --bg-color: #0d1117;
@@ -440,26 +441,37 @@ input[type="search"] {
 
 .scroll-to-footer {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
   background-color: var(--primary-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
   z-index: 999;
+  cursor: pointer;
 }
 
-.scroll-to-footer:hover {
+.scroll-to-footer:hover,
+.scroll-to-footer:active {
   background-color: var(--hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(193, 85, 35, 0.4);
 }
 
 .scroll-to-footer svg {
   color: var(--pure-white);
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.scroll-to-footer.scroll-up svg {
+  transform: rotate(180deg);
 }
 
 @media (min-width: 600px) {
@@ -568,9 +580,14 @@ input[type="search"] {
   }
 
   .scroll-to-footer {
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .scroll-to-footer svg {
+    width: 24px;
+    height: 24px;
   }
 }

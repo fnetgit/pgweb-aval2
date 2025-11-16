@@ -5,7 +5,6 @@ import {
   searchContent,
   fetchGenres,
 } from "./app.js";
-import { initMobileMenu } from "./ui.js";
 
 const $ = (selector) => document.querySelector(selector);
 const IMG_URL = "https://image.tmdb.org/t/p";
@@ -180,5 +179,4 @@ elements.btnNext.addEventListener("click", () => {
   }
 });
 
-initMobileMenu();
 loadGenres(currentType).then(() => loadContent(1));
