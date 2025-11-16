@@ -54,7 +54,7 @@ const updateRating = (rating) => {
 
   const pct = Math.round(rating * 10);
   const color = pct >= 70 ? "#21d07a" : pct >= 40 ? "#d2d531" : "#db2360";
-  
+
   ratingPath.style.stroke = color;
   ratingPath.setAttribute("stroke-dasharray", `${pct}, 100`);
   ratingText.textContent = rating.toFixed(1);
@@ -70,30 +70,35 @@ const setImage = (img, path, name, placeholder) => {
 
 const displayDetails = (data) => {
   const name = data.title || data.name;
-  
+
   setImage(elements.backdrop, data.backdrop_path, name, "original");
   setImage(elements.poster, data.poster_path, name, "w500");
-  
+
   elements.title.textContent = name;
   document.title = `${name}`;
-  elements.date.textContent = formatDate(data.release_date || data.first_air_date);
+  elements.date.textContent = formatDate(
+    data.release_date || data.first_air_date
+  );
 
   if (contentType === "movie") {
     elements.runtime.textContent = formatRuntime(data.runtime);
   } else {
     const s = data.number_of_seasons || 0;
     const e = data.number_of_episodes || 0;
-    elements.runtime.textContent = `${s} temporada${s !== 1 ? "s" : ""} • ${e} episódio${e !== 1 ? "s" : ""}`;
+    elements.runtime.textContent = `${s} temporada${
+      s !== 1 ? "s" : ""
+    } • ${e} episódio${e !== 1 ? "s" : ""}`;
   }
 
   updateRating(data.vote_average);
 
-  elements.genres.innerHTML = data.genres?.map(g => 
-    `<span class="genre-tag">${g.name}</span>`
-  ).join("") || "";
+  elements.genres.innerHTML =
+    data.genres
+      ?.map((g) => `<span class="genre-tag">${g.name}</span>`)
+      .join("") || "";
 
   elements.overview.textContent = data.overview || "Sinopse não disponível.";
-  
+
   toggle(elements.content, elements.loading);
 };
 
