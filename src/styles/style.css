@@ -54,9 +54,12 @@ main {
     var(--hover-color) 100%
   );
   color: var(--pure-white);
+  border: none;
   border-radius: 8px;
   font-size: 15px;
   font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
   box-shadow: 0 4px 12px rgba(193, 85, 35, 0.3);
   transition: all 0.3s ease;
   position: relative;

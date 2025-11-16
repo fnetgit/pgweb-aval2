@@ -28,6 +28,39 @@ let currentType = "mixed";
 let currentGenre = "all";
 let searchQuery = "";
 
+function saveState() {
+  const state = {
+    page: currentPage,
+    type: currentType,
+    genre: currentGenre,
+    search: searchQuery,
+  };
+  localStorage.setItem("catalogState", JSON.stringify(state));
+}
+
+window.saveState = saveState;
+
+function restoreState() {
+  const savedState = localStorage.getItem("catalogState");
+  if (savedState) {
+    try {
+      const state = JSON.parse(savedState);
+      currentPage = state.page || 1;
+      currentType = state.type || "mixed";
+      currentGenre = state.genre || "all";
+      searchQuery = state.search || "";
+
+      elements.typeFilter.value = currentType;
+      elements.searchInput.value = searchQuery;
+
+      return true;
+    } catch (e) {
+      console.error("Erro ao restaurar estado:", e);
+    }
+  }
+  return false;
+}
+
 function updatePagination() {
   elements.pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
   elements.btnPrev.disabled = currentPage === 1;
@@ -52,7 +85,7 @@ function displayContent(data) {
       const typeLabel = type === "series" ? "Série" : "Filme";
       return `
     <li>
-      <article class="movie-card" onclick="location.href='./src/pages/details.html?id=${
+      <article class="movie-card" onclick="saveState(); location.href='./src/pages/details.html?id=${
         item.id
       }&type=${type}'">
         <img src="${
@@ -118,7 +151,6 @@ async function loadGenres(type) {
     genres
       .map((genre) => `<option value="${genre.id}">${genre.name}</option>`)
       .join("");
-  currentGenre = "all";
 }
 
 function handleSearch() {
@@ -128,6 +160,7 @@ function handleSearch() {
     currentPage = 1;
     currentGenre = "all";
     elements.genreFilter.value = "all";
+    saveState();
     loadContent(1);
   }
 }
@@ -138,6 +171,9 @@ elements.typeFilter.addEventListener("change", async (e) => {
   searchQuery = "";
   elements.searchInput.value = "";
   await loadGenres(currentType);
+  currentGenre = "all";
+  elements.genreFilter.value = "all";
+  saveState();
   loadContent(1);
 });
 
@@ -146,6 +182,7 @@ elements.genreFilter.addEventListener("change", (e) => {
   currentPage = 1;
   searchQuery = "";
   elements.searchInput.value = "";
+  saveState();
   loadContent(1);
 });
 
@@ -169,6 +206,7 @@ elements.searchInput.addEventListener("input", (e) => {
 elements.btnPrev.addEventListener("click", () => {
   if (currentPage > 1) {
     loadContent(currentPage - 1);
+    saveState();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
@@ -176,6 +214,7 @@ elements.btnPrev.addEventListener("click", () => {
 elements.btnNext.addEventListener("click", () => {
   if (currentPage < totalPages) {
     loadContent(currentPage + 1);
+    saveState();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
@@ -183,4 +222,29 @@ elements.btnNext.addEventListener("click", () => {
 initMobileMenu();
 initScrollButton();
 updateCopyrightYear();
-loadGenres(currentType).then(() => loadContent(1));
+
+async function init() {
+  const hasRestoredState = restoreState();
+  await loadGenres(currentType);
+
+  if (hasRestoredState) {
+    const genreExists = Array.from(elements.genreFilter.options).some(
+      (option) => option.value === currentGenre
+    );
+
+    if (genreExists) {
+      elements.genreFilter.value = currentGenre;
+    } else {
+      currentGenre = "all";
+      elements.genreFilter.value = "all";
+    }
+
+    loadContent(currentPage);
+  } else {
+    currentGenre = "all";
+    elements.genreFilter.value = "all";
+    loadContent(1);
+  }
+}
+
+init();
