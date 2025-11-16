@@ -1,5 +1,5 @@
 .details-content {
-  margin-top: 90px;
+  margin-top: 150px;
   min-height: calc(100vh - 150px);
 }
 
@@ -210,6 +210,10 @@
 }
 
 @media (min-width: 768px) {
+  .details-content {
+    margin-top: 90px;
+  }
+
   .details-main-container {
     flex-direction: row;
     align-items: flex-start;

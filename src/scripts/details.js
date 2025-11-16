@@ -1,4 +1,5 @@
 import { fetchContentDetails } from "./app.js";
+import { initMobileMenu } from "./ui.js";
 
 const $ = (sel) => document.querySelector(sel);
 const IMG_URL = "https://image.tmdb.org/t/p";
@@ -109,3 +110,5 @@ if (!contentId) {
     .then(displayDetails)
     .catch(() => toggle(elements.error, elements.loading));
 }
+
+initMobileMenu();
