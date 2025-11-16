@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detalhes - Catalog</title>
-    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link rel="stylesheet" href="../styles/style.css" />
     <link
       rel="shortcut icon"
-      href="/public/img/favicon.ico"
+      href="../../public/img/favicon.ico"
       type="image/x-icon"
     />
   </head>
@@ -102,29 +102,34 @@
       </div>
     </main>
 
-    <footer class="site-footer">
+    <a href="#footer" class="scroll-to-footer" aria-label="Ir para o rodapé">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </a>
+
+    <footer id="footer" class="site-footer">
       <p>
         &copy; 2025 Desenvolvido por:
-        <a
-          href="https://github.com/fnetgit"
-          target="_blank"
-          >Francisco Neto</a
-        >,
-        <a
-          href="https://github.com/Fabricio-Fontenele"
-          target="_blank"
+        <a href="https://github.com/fnetgit" target="_blank">Francisco Neto</a>,
+        <a href="https://github.com/Fabricio-Fontenele" target="_blank"
           >Fabrício Fontenele</a
         >,
-        <a
-          href="https://github.com/oAnjophb"
-          target="_blank"
-          >Ruan Pedro</a
-        >
+        <a href="https://github.com/oAnjophb" target="_blank">Ruan Pedro</a>
       </p>
     </footer>
 
-    <script type="module" src="/src/scripts/details.js"></script>
-    <script type="module" src="/src/scripts/main.js"></script>
-    </script>
+    <script type="module" src="../scripts/details.js"></script>
+    <script type="module" src="../scripts/main.js"></script>
   </body>
 </html>
