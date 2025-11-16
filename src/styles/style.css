@@ -37,6 +37,9 @@ body {
 
 main {
   flex: 1;
+  padding: 0 20px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 fieldset {
@@ -435,7 +438,6 @@ input[type="search"] {
   color: var(--primary-color);
 }
 
-/* Botão scroll para footer */
 .scroll-to-footer {
   position: fixed;
   bottom: 30px;
