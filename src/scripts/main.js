@@ -38,7 +38,12 @@ function saveState() {
   localStorage.setItem("catalogState", JSON.stringify(state));
 }
 
+function clearState() {
+  localStorage.removeItem("catalogState");
+}
+
 window.saveState = saveState;
+window.clearState = clearState;
 
 function restoreState() {
   const savedState = localStorage.getItem("catalogState");

@@ -12,6 +12,33 @@
   --rating-star-color: #ffd700;
   --disabled-color: #555555;
   --container-width: 1100px;
+
+  --primary-shadow-sm: 0 2px 8px rgba(193, 85, 35, 0.3);
+  --primary-shadow-md: 0 4px 12px rgba(193, 85, 35, 0.3);
+  --primary-shadow-lg: 0 6px 20px rgba(193, 85, 35, 0.4);
+  --primary-glow-sm: 0 0 0 2px rgba(193, 85, 35, 0.1);
+  --primary-glow-md: 0 0 0 3px rgba(193, 85, 35, 0.1);
+  --primary-overlay: rgba(193, 85, 35, 0.2);
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--hover-color) 100%
+  );
+  --gradient-shine: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
 }
 
 * {
@@ -48,20 +75,16 @@ main {
   gap: 8px;
   margin: 20px 0;
   padding: 12px 20px;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color) 0%,
-    var(--hover-color) 100%
-  );
+  background: var(--gradient-primary);
   color: var(--pure-white);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   font-size: 15px;
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(193, 85, 35, 0.3);
-  transition: all 0.3s ease;
+  box-shadow: var(--primary-shadow-md);
+  transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
 }
@@ -73,13 +96,8 @@ main {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s ease;
+  background: var(--gradient-shine);
+  transition: left var(--transition-slow);
 }
 
 .back-btn:hover::before {
@@ -87,13 +105,13 @@ main {
 }
 
 .back-btn svg {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
   flex-shrink: 0;
 }
 
 .back-btn:hover {
   transform: translateX(-4px);
-  box-shadow: 0 6px 20px rgba(193, 85, 35, 0.4);
+  box-shadow: var(--primary-shadow-lg);
 }
 
 .back-btn:hover svg {
@@ -102,7 +120,7 @@ main {
 
 .back-btn:active {
   transform: translateX(-2px);
-  box-shadow: 0 2px 8px rgba(193, 85, 35, 0.3);
+  box-shadow: var(--primary-shadow-sm);
 }
 
 fieldset {
@@ -138,14 +156,14 @@ fieldset {
   order: 3;
   background-color: var(--primary-surface-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color 0.3s ease;
+  transition: border-color var(--transition-normal);
 }
 
 .header-search-container:focus-within {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(193, 85, 35, 0.1);
+  box-shadow: var(--primary-glow-sm);
 }
 
 .header-search-input {
@@ -169,7 +187,8 @@ fieldset {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color var(--transition-normal),
+    transform var(--transition-fast);
 }
 
 .header-search-btn:hover {
@@ -284,10 +303,10 @@ select {
   color: var(--main-text-color);
   padding: 0.85rem 1rem;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3e%3cpolyline points="6 9 12 15 18 9"%3e%3c/polyline%3e%3c/svg%3e');
   background-repeat: no-repeat;
   background-position: right 1rem center;
@@ -301,7 +320,7 @@ select:hover {
 select:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(193, 85, 35, 0.1);
+  box-shadow: var(--primary-glow-md);
 }
 
 .main-container {
@@ -314,7 +333,7 @@ input[type="search"] {
   padding: 10px;
   font-size: 1rem;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   width: 100%;
   background-color: var(--bg-color);
   color: var(--main-text-color);
@@ -348,10 +367,11 @@ input[type="search"] {
 
 .movie-card {
   background-color: var(--primary-surface-color);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   width: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition-normal),
+    box-shadow var(--transition-normal);
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -393,7 +413,7 @@ input[type="search"] {
   justify-content: flex-end;
   padding: 20px 15px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-normal);
   color: var(--pure-white);
 }
 
@@ -461,11 +481,11 @@ input[type="search"] {
   background-color: var(--primary-surface-color);
   color: var(--main-text-color);
   border: 1px solid var(--primary-color);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   min-width: 48px;
   position: relative;
   overflow: hidden;
@@ -485,10 +505,10 @@ input[type="search"] {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(193, 85, 35, 0.2),
+    var(--primary-overlay),
     transparent
   );
-  transition: left 0.5s ease;
+  transition: left var(--transition-slow);
 }
 
 .pagination button:hover::before {
@@ -496,14 +516,14 @@ input[type="search"] {
 }
 
 .pagination button svg {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
   flex-shrink: 0;
 }
 
 .pagination button:hover:not(:disabled) {
   background-color: var(--primary-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(193, 85, 35, 0.3);
+  box-shadow: var(--primary-shadow-md);
 }
 
 .pagination button:hover:not(:disabled) svg {
@@ -573,7 +593,7 @@ input[type="search"] {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   z-index: 999;
   cursor: pointer;
 }
@@ -585,7 +605,7 @@ input[type="search"] {
 
 .scroll-to-footer svg {
   color: var(--pure-white);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
 }
 
 @media (min-width: 600px) {
