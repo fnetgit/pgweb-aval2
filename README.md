@@ -14,7 +14,7 @@
 
 # 🎥 Catálogo Interativo de Filmes e Séries
 
-Projeto desenvolvido como 2ª Avaliação da disciplina de Programação Web, ministrada pelo `Prof. Eyder Rios`
+Projeto desenvolvido como 2ª Avaliação da disciplina de Programação Web, ministrada pelo [Prof. Eyder Rios](https://github.com/eyderrios)
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) ![API](https://img.shields.io/badge/API-REST-blue?style=for-the-badge&logo=databricks&logoColor=white)
 <br>
@@ -25,11 +25,11 @@ Projeto desenvolvido como 2ª Avaliação da disciplina de Programação Web, mi
 
 ## 👨‍💻 Equipe de Desenvolvedores
 
-##### Ruan Pedro de Araujo Anjos
+##### [Fabricio Fontenele Vieira](https://github.com/Fabricio-Fontenele)
 
-##### Francisco Alves Ribeiro Neto
+##### [Francisco Alves Ribeiro Neto](https://github.com/fnetgit)
 
-##### Fabricio Fontenele Vieira
+##### [Ruan Pedro de Araujo Anjos](https://github.com/oanjophb)
 
 ---
 
@@ -40,16 +40,18 @@ Projeto desenvolvido como 2ª Avaliação da disciplina de Programação Web, mi
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Screenshots](#-screenshots)
 - [Funcionalidades Implementadas](#-funcionalidades-implementadas)
+- [Tecnologias Utilizadas](#️-tecnologias-utilizadas)
 - [Como Executar](#-como-executar)
 - [Estrutura de Arquivos](#-estrutura-de-arquivos)
+- [Funcionalidades Implementadas](#-funcionalidades-implementadas)
 
 ---
 
 ## 🎯 Sobre o Projeto
 
-O objetivo deste trabalho é desenvolver uma aplicação Web responsiva que consome dados de uma API REST pública de filmes e séries. A aplicação exibe um catálogo interativo, permitindo ao usuário ver lançamentos, filtrar resultados, ver detalhes de mídias e navegar por páginas.
+O **Catalog** é uma aplicação web responsiva que consome a API do [TMDb](https://www.themoviedb.org/) para exibir filmes e séries de 2025. Permite buscar, filtrar por tipo/gênero, navegar entre páginas e ver detalhes completos de cada mídia.
 
-Este projeto cumpre os requisitos da 2ª Avaliação da disciplina, focando no uso de **HTML5, CSS3 (puro ou Tailwind CDN) e JavaScript ES6+ (vanilla)**, sem a utilização de frameworks JS.
+Desenvolvido com **HTML5, CSS3 e JavaScript ES6+ puro**, sem frameworks.
 
 ---
 
@@ -65,65 +67,78 @@ Este projeto cumpre os requisitos da 2ª Avaliação da disciplina, focando no u
 
 ## ✨ Funcionalidades Implementadas
 
-Esta é a checklist de requisitos funcionais solicitados no documento `aval2.pdf`:
-
-- [x] **Listagem de Mídias:** A página inicial exibe os lançamentos mais recentes.
-- [x] **Paginação:** O usuário pode navegar entre diferentes páginas de resultados.
-- [x] **Filtragem/Busca:** Implementado um campo de busca para filtrar mídias por nome.
-- [x] **Detalhes da Mídia:** Ao clicar em um card, o usuário é levado a uma página (ou modal) com detalhes (sinopse, data, avaliação, etc.).
-- [x] **Detalhes de Séries:** Para séries, a aplicação exibe informações sobre temporadas e/dias de episódios (quando fornecido pela API).
-- [x] **Tratamento de Erros:** A interface informa ao usuário caso a API falhe ou não retorne resultados.
-- [x] **Feedback Visual:** Ícones de "loading" (carregamento) são exibidos enquanto os dados da API estão sendo buscados.
-- [x] **Responsividade:** O layout se adapta a diferentes tamanhos de tela (desktop e mobile).
+- [x] **Listagem de Mídias:** Lançamentos de 2025 (filmes e séries)
+- [x] **Paginação:** Navegação entre páginas
+- [x] **Busca:** Filtrar mídias por nome
+- [x] **Filtros:** Por tipo (Filmes/Séries/Misto) e gênero
+- [x] **Detalhes:** Página com sinopse, avaliação, elenco e trailer
+- [x] **Detalhes de Séries:** Temporadas, episódios e status
+- [x] **Tratamento de Erros:** Mensagens quando API falha
+- [x] **Feedback Visual:** Loading spinner e animações
+- [x] **Responsividade:** Layout adaptativo (desktop/mobile)
+- [x] **Persistência:** Estado mantido com localStorage
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-Todo o projeto foi construído com as tecnologias obrigatórias da disciplina:
-
-- **HTML5:** Estruturação semântica do conteúdo.
-- **CSS3:** Estilização (usamos CSS puro / Tailwind CDN).
-- **JavaScript (ES6+):** Utilizado para:
-  - Consumo da API REST com `fetch()`.
-  - Manipulação dinâmica do DOM (criação de cards, atualização de conteúdo).
-  - Gerenciamento de eventos (cliques, busca, paginação).
-- **API: The Movies DataBase - TMDB**
+- **HTML5:** Estrutura semântica
+- **CSS3:** Grid, Flexbox, variáveis CSS, animações
+- **JavaScript ES6+:** Módulos, async/await, Fetch API, manipulação do DOM
+- **API:** [TMDb API v3](https://www.themoviedb.org/documentation/api)
 
 ---
 
 ## 🚀 Como Executar
 
-1.  Clone este repositório (ou baixe o .zip):
-    ```bash
-    git clone https://github.com/fnetgit/pgweb-aval2.git
-    ```
-2.  Navegue até a pasta do projeto.
-3.  Abra o arquivo `src/index.html` diretamente no seu navegador de preferência (Google Chrome, Firefox, etc.).
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/fnetgit/pgweb-aval2.git
+   cd pgweb-aval2
+   ```
+
+2. Abra o `index.html` no navegador ou use um servidor local:
+   ```bash
+   python -m http.server 8000
+   # ou
+   npx live-server
+   ```
+
+**Obs:** Necessário conexão com internet para acessar a API do TMDb.
 
 ## 📂 Estrutura de Arquivos
 
-A estrutura do projeto foi organizada da seguinte forma para manter a separação de responsabilidades (HTML, CSS, JS).
+```
+pgweb-aval2/
+├── 📁 public/
+│   ├── 📁 img/                  # Logo e favicon
+│   └── 📁 screenshots/          # Prints da aplicação
+├── 📁 src/
+│   ├── 📁 pages/
+│   │   ├── about.html           # Página sobre
+│   │   └── details.html         # Detalhes de filme/série
+│   ├── 📁 scripts/
+│   │   ├── app.js               # Comunicação com API
+│   │   ├── main.js              # Lógica página inicial
+│   │   ├── details.js           # Lógica detalhes
+│   │   ├── about.js             # Lógica sobre
+│   │   └── ui.js                # Componentes UI
+│   └── 📁 styles/
+│       ├── style.css            # Estilos página inicial
+│       ├── details.css          # Estilos detalhes
+│       └── about.css            # Estilos sobre
+├── index.html                   # Página principal
+├── README.md
+└── aval2.pdf
+```
 
-```
-├── 📁 public
-│   ├── 📁 img
-│   └── 📁 screenshots
-├── 📁 src
-│   ├── 📁 pages
-│   │   ├── 🌐 about.html
-│   │   └── 🌐 details.html
-│   ├── 📁 scripts
-│   │   ├── 📄 app.js
-│   │   ├── 📄 details.js
-│   │   ├── 📄 init.js
-│   │   ├── 📄 main.js
-│   │   └── 📄 ui.js
-│   └── 📁 styles
-│       ├── 🎨 about.css
-│       ├── 🎨 details.css
-│       └── 🎨 style.css
-├── 📝 README.md
-├── 📕 aval2.pdf
-└── 🌐 index.html
-```
+<div align="center">
+
+### 📝 Documentação Completa
+
+Para mais detalhes sobre os requisitos da avaliação, consulte o arquivo [`aval2.pdf`](./aval2.pdf)
+
+---
+
+</div>

@@ -41,9 +41,7 @@ export async function fetchMixedContent(currentPage, genre = "") {
     .slice(0, 10)
     .map((item) => ({ ...item, media_type: "series" }));
 
-  const combined = [...moviesLimited, ...seriesLimited].sort(
-    () => Math.random() - 0.5
-  );
+  const combined = [...moviesLimited, ...seriesLimited];
 
   return {
     results: combined,
@@ -70,7 +68,7 @@ export async function searchContent(query, type = "movie", page = 1) {
     const combined = [
       ...movies.results.map((item) => ({ ...item, media_type: "movie" })),
       ...series.results.map((item) => ({ ...item, media_type: "series" })),
-    ].sort(() => Math.random() - 0.5);
+    ];
 
     return {
       results: combined,
