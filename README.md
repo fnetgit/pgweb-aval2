@@ -61,13 +61,7 @@ Este projeto cumpre os requisitos da 2ª Avaliação da disciplina, focando no u
 
 ### Página de Detalhes (Filme/Série)
 
-![Print da Página de Detalhes]()
-
-### Responsividade (Mobile)
-
-![Print da Versão Mobile](/public/screenshots/mobile_initial_page.png)
-
----
+![Print da Página de Detalhes](/public/screenshots/mobile_details_page1.png)![](/public/screenshots/mobile_details_page2.png)
 
 ## ✨ Funcionalidades Implementadas
 
@@ -116,11 +110,18 @@ A estrutura do projeto foi organizada da seguinte forma para manter a separaçã
 │   ├── 📁 img
 │   └── 📁 screenshots
 ├── 📁 src
+│   ├── 📁 pages
+│   │   ├── 🌐 about.html
+│   │   └── 🌐 details.html
 │   ├── 📁 scripts
 │   │   ├── 📄 app.js
+│   │   ├── 📄 details.js
+│   │   ├── 📄 init.js
 │   │   ├── 📄 main.js
 │   │   └── 📄 ui.js
 │   └── 📁 styles
+│       ├── 🎨 about.css
+│       ├── 🎨 details.css
 │       └── 🎨 style.css
 ├── 📝 README.md
 ├── 📕 aval2.pdf
