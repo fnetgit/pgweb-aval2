@@ -43,18 +43,63 @@ main {
 }
 
 .back-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 20px 0;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
+  padding: 12px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--hover-color) 100%
+  );
   color: var(--pure-white);
-  border-radius: 5px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(193, 85, 35, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.back-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.back-btn:hover::before {
+  left: 100%;
+}
+
+.back-btn svg {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .back-btn:hover {
-  background-color: var(--hover-color);
+  transform: translateX(-4px);
+  box-shadow: 0 6px 20px rgba(193, 85, 35, 0.4);
+}
+
+.back-btn:hover svg {
+  transform: translateX(-3px);
+}
+
+.back-btn:active {
+  transform: translateX(-2px);
+  box-shadow: 0 2px 8px rgba(193, 85, 35, 0.3);
 }
 
 fieldset {
@@ -405,27 +450,85 @@ input[type="search"] {
 }
 
 .pagination button {
-  padding: 8px 12px;
-  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background-color: var(--primary-surface-color);
   color: var(--main-text-color);
   border: 1px solid var(--primary-color);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   transition: all 0.3s ease;
-  min-width: 80px;
+  min-width: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pagination button span {
+  display: none;
+}
+
+.pagination button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(193, 85, 35, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.pagination button:hover::before {
+  left: 100%;
+}
+
+.pagination button svg {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .pagination button:hover:not(:disabled) {
   background-color: var(--primary-color);
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(193, 85, 35, 0.3);
+}
+
+.pagination button:hover:not(:disabled) svg {
+  transform: scale(1.2);
+}
+
+.pagination button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .pagination button:disabled {
   border-color: var(--disabled-color);
   color: var(--disabled-color);
+  background-color: transparent;
   cursor: not-allowed;
   opacity: 0.4;
+}
+
+.pagination button:disabled svg {
+  opacity: 0.4;
+}
+
+#btn-previous:hover:not(:disabled) svg {
+  transform: translateX(-3px) scale(1.2);
+}
+
+#btn-next:hover:not(:disabled) svg {
+  transform: translateX(3px) scale(1.2);
 }
 
 #page-info {
@@ -434,6 +537,7 @@ input[type="search"] {
   font-weight: 500;
   min-width: 100px;
   text-align: center;
+  padding: 0 8px;
 }
 
 .site-footer {
@@ -488,6 +592,15 @@ input[type="search"] {
 
   .nav-toggle {
     display: none;
+  }
+
+  .pagination button {
+    padding: 10px 16px;
+    min-width: 110px;
+  }
+
+  .pagination button span {
+    display: inline;
   }
 
   #main-nav {

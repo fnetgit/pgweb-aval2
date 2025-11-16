@@ -63,7 +63,7 @@
       <section class="filter-section" aria-label="Filtros de conteúdo">
         <div class="filter-container">
           <div class="filter-header">
-            <h1>Lançamentos de 2025</h1>
+            <h1>Lançamentos de <span class="current-year"></span></h1>
             <p>Descubra os filmes e séries mais recentes</p>
           </div>
 
@@ -103,9 +103,39 @@
       </ol>
 
       <nav class="pagination" aria-label="Paginação de resultados">
-        <button id="btn-previous">← Anterior</button>
+        <button id="btn-previous">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Anterior</span>
+        </button>
         <span id="page-info" aria-live="polite">Página 1</span>
-        <button id="btn-next">Próximo →</button>
+        <button id="btn-next">
+          <span>Próximo</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </nav>
     </main>
 
@@ -127,7 +157,7 @@
 
     <footer id="footer" class="site-footer">
       <p>
-        &copy; 2025 Desenvolvido por:
+        &copy; <span class="current-year"></span> Desenvolvido por:
         <a
           href="https://github.com/fnetgit"
           target="_blank"

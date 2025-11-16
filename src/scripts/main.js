@@ -5,7 +5,7 @@ import {
   searchContent,
   fetchGenres,
 } from "./app.js";
-import { initMobileMenu, initScrollButton } from "./ui.js";
+import { initMobileMenu, initScrollButton, updateCopyrightYear } from "./ui.js";
 
 const $ = (selector) => document.querySelector(selector);
 const IMG_URL = "https://image.tmdb.org/t/p";
@@ -182,4 +182,5 @@ elements.btnNext.addEventListener("click", () => {
 
 initMobileMenu();
 initScrollButton();
+updateCopyrightYear();
 loadGenres(currentType).then(() => loadContent(1));
