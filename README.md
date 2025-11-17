@@ -100,9 +100,9 @@ Desenvolvido com **HTML5, CSS3 e JavaScript ES6+ puro**, sem frameworks.
 
 2. Abra o `index.html` no navegador ou use um servidor local:
    ```bash
-   python -m http.server 8000
-   # ou
    npx live-server
+   # ou
+   python -m http.server 8000
    ```
 
 **Obs:** Necessário conexão com internet para acessar a API do TMDb.
