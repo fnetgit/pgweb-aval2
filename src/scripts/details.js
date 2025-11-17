@@ -1,5 +1,6 @@
 import { fetchContentDetails } from "./app.js";
 import { initMobileMenu, updateCopyrightYear } from "./ui.js";
+import { setupClearStateLinks } from "./utils.js";
 
 const $ = (sel) => document.querySelector(sel);
 const IMG_URL = "https://image.tmdb.org/t/p";
@@ -102,6 +103,8 @@ const displayDetails = (data) => {
 
   toggle(elements.content, elements.loading);
 };
+
+setupClearStateLinks();
 
 if (!contentId) {
   toggle(elements.error, elements.loading);

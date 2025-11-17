@@ -1,6 +1,6 @@
 import { initMobileMenu, updateCopyrightYear } from "./ui.js";
+import { setupClearStateLinks } from "./utils.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  initMobileMenu();
-  updateCopyrightYear();
-});
+setupClearStateLinks();
+initMobileMenu();
+updateCopyrightYear();

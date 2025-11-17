@@ -4,7 +4,6 @@
   --bg-color: #0d1117;
   --primary-surface-color: #1a202c;
   --primary-color: #c15523;
-  --hover-color: #c15523;
   --main-text-color: #f0f0f0;
   --secondary-text-color: #aaaaaa;
   --border-color: #333;
@@ -20,7 +19,6 @@
   --primary-glow-md: 0 0 0 3px rgba(193, 85, 35, 0.1);
   --primary-overlay: rgba(193, 85, 35, 0.2);
 
-  --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
 
@@ -31,7 +29,7 @@
   --gradient-primary: linear-gradient(
     135deg,
     var(--primary-color) 0%,
-    var(--hover-color) 100%
+    var(--primary-color) 100%
   );
   --gradient-shine: linear-gradient(
     90deg,
@@ -188,11 +186,11 @@ fieldset {
   align-items: center;
   justify-content: center;
   transition: background-color var(--transition-normal),
-    transform var(--transition-fast);
+    transform var(--transition-normal);
 }
 
 .header-search-btn:hover {
-  background-color: var(--hover-color);
+  background-color: var(--primary-color);
   transform: scale(1.05);
 }
 
@@ -361,7 +359,7 @@ input[type="search"] {
 }
 
 .error-message {
-  color: var(--hover-color);
+  color: var(--primary-color);
   font-weight: 500;
 }
 
@@ -381,7 +379,7 @@ input[type="search"] {
 
 .movie-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 16px var(--hover-color);
+  box-shadow: 0 8px 16px var(--primary-color);
 }
 
 .movie-card:hover .movie-overlay {
@@ -599,7 +597,7 @@ input[type="search"] {
 }
 
 .scroll-to-footer:hover {
-  background-color: var(--hover-color);
+  background-color: var(--primary-color);
   transform: scale(1.1);
 }
 

@@ -211,11 +211,11 @@
   padding: 40px;
 }
 
-.error-message {
+#error-message {
   margin-top: 150px;
   text-align: center;
   font-size: 1.1rem;
-  color: var(--hover-color);
+  color: var(--primary-color);
   padding: 40px;
 }
 

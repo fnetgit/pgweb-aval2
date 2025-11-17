@@ -6,24 +6,27 @@ async function fetchFromAPI(endpoint) {
     const response = await fetch(`${BASE_URL}${endpoint}`);
     if (!response.ok) {
       throw new Error(
-        `Erro da API: ${response.statusText} (Status: ${response.status})`
+        `API Error: ${response.statusText} (Status: ${response.status})`
       );
     }
     return await response.json();
   } catch (error) {
-    console.error("Falha no fetch:", error);
+    console.error("Fetch failed:", error);
     throw new Error(error.message || "Não foi possível conectar à API.");
   }
 }
 
+const buildGenreParam = (genre) =>
+  genre && genre !== "all" ? `&with_genres=${genre}` : "";
+
 export async function fetchMoviesByPage(currentPage, genre = "") {
-  const genreParam = genre && genre !== "all" ? `&with_genres=${genre}` : "";
+  const genreParam = buildGenreParam(genre);
   const endpoint = `/discover/movie?primary_release_year=2025&api_key=${API_KEY}&page=${currentPage}&language=pt-BR${genreParam}`;
   return fetchFromAPI(endpoint);
 }
 
 export async function fetchSeriesByPage(currentPage, genre = "") {
-  const genreParam = genre && genre !== "all" ? `&with_genres=${genre}` : "";
+  const genreParam = buildGenreParam(genre);
   const endpoint = `/discover/tv?first_air_date_year=2025&api_key=${API_KEY}&page=${currentPage}&language=pt-BR${genreParam}`;
   return fetchFromAPI(endpoint);
 }
@@ -51,18 +54,13 @@ export async function fetchMixedContent(currentPage, genre = "") {
 }
 
 export async function searchContent(query, type = "movie", page = 1) {
+  const encodedQuery = encodeURIComponent(query);
+  const baseParams = `api_key=${API_KEY}&query=${encodedQuery}&page=${page}&language=pt-BR`;
+
   if (type === "mixed") {
     const [movies, series] = await Promise.all([
-      fetchFromAPI(
-        `/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-          query
-        )}&page=${page}&language=pt-BR`
-      ),
-      fetchFromAPI(
-        `/search/tv?api_key=${API_KEY}&query=${encodeURIComponent(
-          query
-        )}&page=${page}&language=pt-BR`
-      ),
+      fetchFromAPI(`/search/movie?${baseParams}`),
+      fetchFromAPI(`/search/tv?${baseParams}`),
     ]);
 
     const combined = [
@@ -72,17 +70,13 @@ export async function searchContent(query, type = "movie", page = 1) {
 
     return {
       results: combined,
-      page: page,
+      page,
       total_pages: Math.max(movies.total_pages, series.total_pages),
     };
   }
 
   const endpoint = type === "series" ? "/search/tv" : "/search/movie";
-  return fetchFromAPI(
-    `${endpoint}?api_key=${API_KEY}&query=${encodeURIComponent(
-      query
-    )}&page=${page}&language=pt-BR`
-  );
+  return fetchFromAPI(`${endpoint}?${baseParams}`);
 }
 
 export async function fetchGenres(type = "movie") {

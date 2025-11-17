@@ -13,6 +13,11 @@ export function initMobileMenu() {
   }
 }
 
+const createArrowSVG = (direction) => {
+  const points = direction === "up" ? "18 15 12 9 6 15" : "6 9 12 15 18 9";
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="${points}"></polyline></svg>`;
+};
+
 export function initScrollButton() {
   const scrollBtn = document.querySelector(".scroll-to-footer");
   const footer = document.querySelector("#footer");
@@ -23,48 +28,15 @@ export function initScrollButton() {
   let ticking = false;
 
   function updateScrollButton() {
-    const scrollPosition = window.scrollY;
-
-    const shouldShowUpArrow = scrollPosition > 150;
+    const shouldShowUpArrow = window.scrollY > 150;
 
     if (shouldShowUpArrow !== isShowingUpArrow) {
       isShowingUpArrow = shouldShowUpArrow;
-
-      if (isShowingUpArrow) {
-        scrollBtn.innerHTML = `
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-        `;
-        scrollBtn.setAttribute("aria-label", "Voltar ao topo");
-      } else {
-        scrollBtn.innerHTML = `
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        `;
-        scrollBtn.setAttribute("aria-label", "Ir para o rodapé");
-      }
+      scrollBtn.innerHTML = createArrowSVG(isShowingUpArrow ? "up" : "down");
+      scrollBtn.setAttribute(
+        "aria-label",
+        isShowingUpArrow ? "Voltar ao topo" : "Ir para o rodapé"
+      );
     }
 
     ticking = false;
@@ -79,19 +51,8 @@ export function initScrollButton() {
 
   scrollBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
-    if (isShowingUpArrow) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      if (footer) {
-        footer.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: "smooth",
-        });
-      }
-    }
+    const target = isShowingUpArrow ? 0 : document.documentElement.scrollHeight;
+    window.scrollTo({ top: target, behavior: "smooth" });
   });
 
   window.addEventListener("scroll", requestTick, { passive: true });

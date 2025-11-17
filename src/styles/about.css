@@ -51,7 +51,7 @@ main > p {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--hover-color));
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-color));
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -61,7 +61,7 @@ main > p {
   transform: scaleX(1);
 }
 
-.team-card h1 {
+.team-card h2 {
   font-size: 1.3rem;
   color: var(--main-text-color);
   margin-bottom: 0.5rem;
@@ -75,17 +75,19 @@ main > p {
   letter-spacing: 0.5px;
 }
 
-.team-cards > h1 {
+.project-info {
+  margin-top: 3rem;
   text-align: center;
+}
+
+.project-info h2 {
   font-size: 2rem;
   color: var(--primary-color);
-  margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
 
-.team-cards > p {
-  text-align: center;
+.project-info p {
   font-size: 1rem;
   color: var(--secondary-text-color);
   line-height: 1.8;
@@ -116,7 +118,7 @@ main > p {
     padding: 2.5rem 2rem;
   }
 
-  .team-card h1 {
+  .team-card h2 {
     font-size: 1.4rem;
   }
 
@@ -124,13 +126,11 @@ main > p {
     font-size: 1rem;
   }
 
-  .team-cards > h1 {
-    grid-column: 1 / -1;
+  .project-info h2 {
     font-size: 2.3rem;
   }
 
-  .team-cards > p {
-    grid-column: 1 / -1;
+  .project-info p {
     font-size: 1.05rem;
     max-width: 700px;
   }
@@ -171,7 +171,7 @@ main > p {
     box-shadow: 0 8px 24px rgba(193, 85, 35, 0.2);
   }
 
-  .team-card h1 {
+  .team-card h2 {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
   }
@@ -180,11 +180,11 @@ main > p {
     font-size: 1rem;
   }
 
-  .team-cards > h1 {
+  .project-info h2 {
     font-size: 2.5rem;
   }
 
-  .team-cards > p {
+  .project-info p {
     font-size: 1.1rem;
     max-width: 800px;
   }

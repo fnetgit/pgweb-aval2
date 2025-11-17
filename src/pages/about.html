@@ -16,7 +16,7 @@
   <body>
     <header>
       <div class="container-header">
-        <a href="../../" onclick="clearState()">
+        <a href="../../" id="logo-link">
           <img src="../../public/img/catalog_logo.png" alt="Catalog Logo" />
         </a>
 
@@ -28,7 +28,7 @@
         ></button>
 
         <nav id="main-nav" class="main-navigation">
-          <a href="../../" onclick="clearState()">Início</a>
+          <a href="../../" id="home-link">Início</a>
           <a href="./about.html">Sobre a Equipe</a>
         </nav>
       </div>
@@ -61,24 +61,26 @@
 
       <div class="team-cards">
         <div class="team-card">
-          <h1>Francisco Neto</h1>
+          <h2>Francisco Neto</h2>
           <p>Desenvolvedor Full-Stack</p>
         </div>
         <div class="team-card">
-          <h1>Fabricio Fontenele</h1>
+          <h2>Fabricio Fontenele</h2>
           <p>Desenvolvedor Back-End</p>
         </div>
         <div class="team-card">
-          <h1>Ruan Pedro</h1>
+          <h2>Ruan Pedro</h2>
           <p>Desenvolvedor Full-Stack</p>
         </div>
+      </div>
 
-        <h1>Sobre o Projeto</h1>
+      <section class="project-info">
+        <h2>Sobre o Projeto</h2>
         <p>
           Este catálogo online foi desenvolvido para facilitar a busca e
           descoberta de filmes e séries. Feito com HTML5, CSS3 e JavaScript.
         </p>
-      </div>
+      </section>
     </main>
 
     <footer id="footer" class="site-footer">

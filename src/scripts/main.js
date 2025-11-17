@@ -6,6 +6,7 @@ import {
   fetchGenres,
 } from "./app.js";
 import { initMobileMenu, initScrollButton, updateCopyrightYear } from "./ui.js";
+import { setupClearStateLinks } from "./utils.js";
 
 const $ = (selector) => document.querySelector(selector);
 const IMG_URL = "https://image.tmdb.org/t/p";
@@ -38,13 +39,6 @@ function saveState() {
   localStorage.setItem("catalogState", JSON.stringify(state));
 }
 
-function clearState() {
-  localStorage.removeItem("catalogState");
-}
-
-window.saveState = saveState;
-window.clearState = clearState;
-
 function restoreState() {
   const savedState = localStorage.getItem("catalogState");
   if (savedState) {
@@ -60,7 +54,7 @@ function restoreState() {
 
       return true;
     } catch (e) {
-      console.error("Erro ao restaurar estado:", e);
+      console.error("Failed to restore state:", e);
     }
   }
   return false;
@@ -68,9 +62,39 @@ function restoreState() {
 
 function updatePagination() {
   elements.pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-  elements.btnPrev.disabled = currentPage === 1;
+  elements.btnPrev.disabled = currentPage <= 1;
   elements.btnNext.disabled = currentPage >= totalPages;
 }
+
+const createMovieCard = (item) => {
+  const type = item.media_type || currentType;
+  const typeLabel = type === "series" ? "Série" : "Filme";
+  const title = item.title || item.name;
+  const year = (item.release_date || item.first_air_date)?.slice(0, 4) || "N/A";
+  const rating = item.vote_average?.toFixed(1) || "N/A";
+  const posterUrl = item.poster_path
+    ? `${IMG_URL}/w400${item.poster_path}`
+    : "https://placehold.co/400x600/0d1117/aaaaaa?text=Sem+Imagem";
+
+  return `
+    <li>
+      <article class="movie-card" data-id="${item.id}" data-type="${type}">
+        <img src="${posterUrl}" alt="${title}" onerror="this.src='https://placehold.co/400x600/0d1117/aaaaaa?text=Erro+Img'">
+        <div class="movie-overlay">
+          <span class="overlay-type">${typeLabel}</span>
+          <h3 class="overlay-title">${title}</h3>
+          <p class="overlay-year">${year}</p>
+          <div class="overlay-rating">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span>${rating}</span>
+          </div>
+        </div>
+      </article>
+    </li>
+  `;
+};
 
 function displayContent(data) {
   elements.loading.style.display = "none";
@@ -84,41 +108,20 @@ function displayContent(data) {
   }
 
   totalPages = data.total_pages;
-  elements.collection.innerHTML = data.results
-    .map((item) => {
-      const type = item.media_type || currentType;
-      const typeLabel = type === "series" ? "Série" : "Filme";
-      return `
-    <li>
-      <article class="movie-card" onclick="saveState(); location.href='./src/pages/details.html?id=${
-        item.id
-      }&type=${type}'">
-        <img src="${
-          item.poster_path
-            ? `${IMG_URL}/w400${item.poster_path}`
-            : "https://placehold.co/400x600/0d1117/aaaaaa?text=Sem+Imagem"
-        }" 
-             alt="${item.title || item.name}"
-             onerror="this.src='https://placehold.co/400x600/0d1117/aaaaaa?text=Erro+Img'">
-        <div class="movie-overlay">
-          <span class="overlay-type">${typeLabel}</span>
-          <h3 class="overlay-title">${item.title || item.name}</h3>
-          <p class="overlay-year">${
-            (item.release_date || item.first_air_date)?.slice(0, 4) || "N/A"
-          }</p>
-          <div class="overlay-rating">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <span>${item.vote_average?.toFixed(1) || "N/A"}</span>
-          </div>
-        </div>
-      </article>
-    </li>
-  `;
-    })
-    .join("");
+  elements.collection.innerHTML = data.results.map(createMovieCard).join("");
   updatePagination();
+  attachCardClickHandlers();
+}
+
+function attachCardClickHandlers() {
+  document.querySelectorAll(".movie-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const id = card.dataset.id;
+      const type = card.dataset.type;
+      saveState();
+      location.href = `./src/pages/details.html?id=${id}&type=${type}`;
+    });
+  });
 }
 
 function showError(message) {
@@ -158,13 +161,17 @@ async function loadGenres(type) {
       .join("");
 }
 
+const resetFilters = () => {
+  currentPage = 1;
+  currentGenre = "all";
+  elements.genreFilter.value = "all";
+};
+
 function handleSearch() {
   const query = elements.searchInput.value.trim();
   if (query) {
     searchQuery = query;
-    currentPage = 1;
-    currentGenre = "all";
-    elements.genreFilter.value = "all";
+    resetFilters();
     saveState();
     loadContent(1);
   }
@@ -172,12 +179,10 @@ function handleSearch() {
 
 elements.typeFilter.addEventListener("change", async (e) => {
   currentType = e.target.value;
-  currentPage = 1;
   searchQuery = "";
   elements.searchInput.value = "";
+  resetFilters();
   await loadGenres(currentType);
-  currentGenre = "all";
-  elements.genreFilter.value = "all";
   saveState();
   loadContent(1);
 });
@@ -208,22 +213,21 @@ elements.searchInput.addEventListener("input", (e) => {
   }
 });
 
+const handlePageChange = (newPage) => {
+  loadContent(newPage);
+  saveState();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 elements.btnPrev.addEventListener("click", () => {
-  if (currentPage > 1) {
-    loadContent(currentPage - 1);
-    saveState();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  if (currentPage > 1) handlePageChange(currentPage - 1);
 });
 
 elements.btnNext.addEventListener("click", () => {
-  if (currentPage < totalPages) {
-    loadContent(currentPage + 1);
-    saveState();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  if (currentPage < totalPages) handlePageChange(currentPage + 1);
 });
 
+setupClearStateLinks();
 initMobileMenu();
 initScrollButton();
 updateCopyrightYear();
