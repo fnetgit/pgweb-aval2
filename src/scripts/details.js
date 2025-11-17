@@ -63,11 +63,16 @@ const updateRating = (rating) => {
   ratingText.style.fill = color;
 };
 
-const setImage = (img, path, name, placeholder) => {
-  img.src = path
-    ? `${IMG_URL}/${placeholder}${path}`
-    : `https://placehold.co/${placeholder}/0d1117/aaaaaa?text=Sem+Imagem`;
+const setImage = (img, path, name, size) => {
+  const placeholder = `https://placehold.co/1280x720/0d1117/666666?text=${encodeURIComponent(
+    size === "original" ? "Banner não disponível" : "Poster não disponível"
+  )}`;
+
+  img.src = path ? `${IMG_URL}/${size}${path}` : placeholder;
   img.alt = name;
+  img.onerror = () => {
+    img.src = placeholder;
+  };
 };
 
 const displayDetails = (data) => {
